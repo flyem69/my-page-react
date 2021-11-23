@@ -1,0 +1,17 @@
+.App-content {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.App-content.light {
+    background-color: var(--strong-light);
+}
+
+.App-content.dark {
+    background-color: var(--strong-dark);
+}

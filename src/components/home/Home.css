@@ -1,0 +1,27 @@
+.Home {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.Home-item {
+    position: relative;
+    height: 200px;
+    margin: 50px;
+    transition: transform 0.2s;
+}
+
+.Home-item:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.Home-item.light {
+    filter: invert(0%) sepia(89%) saturate(23%) hue-rotate(124deg) brightness(101%) contrast(75%); /* strong dark */
+}
+
+.Home-item.dark {
+    filter: invert(99%) sepia(1%) saturate(2018%) hue-rotate(250deg) brightness(109%) contrast(63%); /* strong light */
+}
