@@ -1,15 +1,15 @@
-.Home {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
+.Home-grid {
+    display: grid;
+    gap: 100px;
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-rows: 200px;
+    align-items: center;
+    justify-items: center;
 }
 
 .Home-item {
-    position: relative;
     height: 200px;
-    margin: 50px;
+    width: 200px;
     transition: transform 0.2s;
 }
 

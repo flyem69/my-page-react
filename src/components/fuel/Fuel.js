@@ -193,7 +193,7 @@ export default function Fuel() {
                     <SmallInput props={raceLengthProps}/>
                 </div>
                 <div className='x03 y3'>
-                    <div className={`Fuel-button ${appearance}`} onClick={calcRaceFuel}>
+                    <div className={`button ${appearance}`} onClick={calcRaceFuel}>
                         Calculate race fuel
                     </div>
                 </div>
@@ -212,7 +212,7 @@ export default function Fuel() {
                     <SmallInput props={distanceProps}/>
                 </div>
                 <div className='x01 y2'>
-                    <div className={`Fuel-button ${appearance}`} onClick={calcRoadFuel}>
+                    <div className={`button ${appearance}`} onClick={calcRoadFuel}>
                         Calculate road fuel
                     </div>
                 </div>
