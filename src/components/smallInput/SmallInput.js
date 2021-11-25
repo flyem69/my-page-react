@@ -1,15 +1,17 @@
 import React from 'react'
 import './SmallInput.css'
+import {Context} from '../../Context.js'
 
-export default function SmallInput({globalProps, localProps}) {
-    const appearance = globalProps.darkModeState[0] ? 'dark' : 'light'
-    const validity = localProps.validityState[0] ? 'valid' : 'invalid'
-    const [getValue, setValue] = localProps.valueState
+export default function SmallInput({props}) {
+    const {getDarkMode} = React.useContext(Context)
+    const appearance = getDarkMode ? 'dark' : 'light'
+    const validity = props.validityState[0] ? 'valid' : 'invalid'
+    const [getValue, setValue] = props.valueState
 
     function modify(event) {
         const input = event.target.value
-        if ('regex' in localProps) {
-            if (localProps.regex.test(input))
+        if ('regex' in props) {
+            if (props.regex.test(input))
                 setValue(input)
         } else {
             setValue(input)
@@ -19,9 +21,9 @@ export default function SmallInput({globalProps, localProps}) {
     return (
         <input
             className={`SmallInput ${appearance} ${validity}`}
-            placeholder={localProps.placeholder}
+            placeholder={props.placeholder}
             value={getValue}
             onChange={(e) => {modify(e)}}
-            onFocus={localProps.onClick} />
+            onFocus={props.onClick} />
     )
 }

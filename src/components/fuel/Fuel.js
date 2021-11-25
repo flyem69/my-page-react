@@ -1,9 +1,11 @@
 import React from 'react'
 import './Fuel.css'
 import SmallInput from '../smallInput/SmallInput.js'
+import {Context} from '../../Context.js'
 
-export default function Fuel({props}) {
-    const appearance = props.darkModeState[0] ? 'dark' : 'light'
+export default function Fuel() {
+    const {getDarkMode} = React.useContext(Context)
+    const appearance = getDarkMode ? 'dark' : 'light'
     const [isBtnLock, setBtnLock] = React.useState(false)
     const values = {
         lapTimeMin: React.useState(''),
@@ -170,25 +172,25 @@ export default function Fuel({props}) {
                     Lap time
                 </div>
                 <div className='x1 y0'>
-                    <SmallInput globalProps={props} localProps={lapTimeMinProps}/>
+                    <SmallInput props={lapTimeMinProps}/>
                 </div>
                 <div className='x2 y0'>
-                    <SmallInput globalProps={props} localProps={lapTimeSProps}/>
+                    <SmallInput props={lapTimeSProps}/>
                 </div>
                 <div className='x3 y0'>
-                    <SmallInput globalProps={props} localProps={lapTimeMSProps}/>
+                    <SmallInput props={lapTimeMSProps}/>
                 </div>
                 <div className='x0 y1 align-right'>
                     Fuel per lap
                 </div>
                 <div className='x1 y1'>
-                    <SmallInput globalProps={props} localProps={fuelPerLapProps}/>
+                    <SmallInput props={fuelPerLapProps}/>
                 </div>
                 <div className='x0 y2 align-right'>
                     Race length
                 </div>
                 <div className='x1 y2'>
-                    <SmallInput globalProps={props} localProps={raceLengthProps}/>
+                    <SmallInput props={raceLengthProps}/>
                 </div>
                 <div className='x03 y3'>
                     <div className={`Fuel-button ${appearance}`} onClick={calcRaceFuel}>
@@ -201,13 +203,13 @@ export default function Fuel({props}) {
                     Fuel per 100 km
                 </div>
                 <div className='x1 y0'>
-                    <SmallInput globalProps={props} localProps={fuelPer100Props}/>
+                    <SmallInput props={fuelPer100Props}/>
                 </div>
                 <div className='x0 y1 align-right'>
                     Distance
                 </div>
                 <div className='x1 y1'>
-                    <SmallInput globalProps={props} localProps={distanceProps}/>
+                    <SmallInput props={distanceProps}/>
                 </div>
                 <div className='x01 y2'>
                     <div className={`Fuel-button ${appearance}`} onClick={calcRoadFuel}>

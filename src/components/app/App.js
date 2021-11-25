@@ -2,18 +2,16 @@ import React from 'react';
 import './App.css';
 import Header from '../header/Header.js'
 import Router from '../../Router.js';
+import { Context } from '../../Context.js'
 
 function App() {
-  const [getDarkMode, setDarkMode] = React.useState(true)
-  const props = {
-      darkModeState: [getDarkMode, setDarkMode]
-  }
+  const {getDarkMode} = React.useContext(Context)
   const appearance = getDarkMode ? 'dark' : 'light'
   return (
     <>
-      <Header props={props}/>
+      <Header/>
       <div className={`App-content ${appearance}`}>
-        <Router props={props}/>
+        <Router/>
       </div>
     </>
   );

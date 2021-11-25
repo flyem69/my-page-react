@@ -1,9 +1,10 @@
 import React from 'react'
 import Switch from '../switch/Switch.js'
 import './Header.css'
+import { Context } from '../../Context.js'
 
-export default function Header({props}) {
-    const [getDarkMode, setDarkMode] = props.darkModeState
+export default function Header() {
+    const {getDarkMode, setDarkMode} = React.useContext(Context)
     const appearance = getDarkMode ? 'dark' : 'light'
     const switchProps = {
         switchPosition: getDarkMode,
@@ -14,7 +15,7 @@ export default function Header({props}) {
     return (
         <div className={`Header ${appearance}`}>
             <div className='Header-switch'>
-                <Switch globalProps={props} localProps={switchProps}/>
+                <Switch props={switchProps}/>
             </div>
             <div className='Header-switchLabel'>
                 Dark mode

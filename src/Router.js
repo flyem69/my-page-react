@@ -3,15 +3,15 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Home from './components/home/Home.js'
 import Fuel from './components/fuel/Fuel.js'
 
-export default function Content({props}) {
+export default function Router() {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path='/'>
-                    <Home props={props} />
+                    <Home />
                 </Route>
                 <Route exact path='/fuel'>
-                    <Fuel props={props} />
+                    <Fuel />
                 </Route>
             </Switch>
         </BrowserRouter>

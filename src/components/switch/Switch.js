@@ -1,10 +1,11 @@
 import React from 'react'
 import './Switch.css'
+import { Context } from '../../Context.js'
 
-export default function Switch({globalProps, localProps}) {
-    const getDarkMode = globalProps.darkModeState[0]
-    const position = localProps.switchPosition
-    const callback = localProps.switchCallback
+export default function Switch({props}) {
+    const {getDarkMode} = React.useContext(Context)
+    const position = props.switchPosition
+    const callback = props.switchCallback
     const appearance = getDarkMode ? 'dark' : 'light'
     const thumbPosition = position ? '50%' : '0%'
     return (
