@@ -16,11 +16,16 @@ const ContextProvider = ({children}) => {
         setSocketConnected(false)
     })
 
+    const registerStream = () => {
+        socket.emit('registerStream')
+    }
+
     return (
         <Context.Provider value={{
             getDarkMode,
             setDarkMode,
-            isSocketConnected
+            isSocketConnected,
+            registerStream
         }}>
             {children}
         </Context.Provider>

@@ -10,7 +10,7 @@
 .Home-item {
     height: 200px;
     width: 200px;
-    transition: transform 0.2s;
+    transition: 0.2s;
 }
 
 .Home-item:hover {
