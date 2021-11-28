@@ -1,0 +1,6 @@
+.player {
+    max-height: 80%;
+    min-height: 360px;
+    max-width: 80%;
+    min-width: 640px;
+}

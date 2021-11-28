@@ -1,25 +1,35 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Streams.css'
 import { Context } from '../../Context.js'
 import Refresh from '../../images/refresh.svg'
 
 export default function Streams() {
-    const {getDarkMode, isSocketConnected, registerStream} = React.useContext(Context)
-    const [getStreams, setStreams] = React.useState([])
+    const { getDarkMode, isStreamService, startStream } = React.useContext(Context)
+    const [getStreamList, setStreamList] = React.useState([])
     const [isRefreshing, setRefreshing] = React.useState(false)
     const appearance = getDarkMode ? 'dark' : 'light'
-    const availableStreams = isSocketConnected ? 0 : 'No service'
+    const availableStreams = isStreamService ? getStreamList.length : 'No service'
     const animation = isRefreshing ? 'rotating' : 'still'
-    const streamList = getStreams.map(stream => {
-      return (<div key={stream}>
-        {stream}
-      </div>)
+    const streamList = getStreamList.map(streamId => {
+      return (
+        <Link to={`/stream/${streamId}`}>
+          <div key={streamId}>
+            {streamId}
+          </div>
+        </Link>
+      )
     })
 
     React.useEffect(() => {
-      if (isSocketConnected)
+      if (isStreamService)
         fetchStreams()
-    }, [isSocketConnected])
+    }, [isStreamService])
+
+    function refresh() {
+      if (isStreamService && !isRefreshing)
+        fetchStreams()
+    }
 
     function fetchStreams() {
       const startTime = Date.now()
@@ -32,16 +42,24 @@ export default function Streams() {
           }, remainingAnimationTime)
           return res.json()
         })
-        .then(data => {
-          setStreams(data)
+        .then(array => {
+          setStreamList(array)
         }, err => {
           console.log(err)
         })
     }
 
-    function refresh() {
-      if (isSocketConnected && !isRefreshing)
-        fetchStreams()
+    function setupStream() {
+      if (isStreamService) {
+        navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true
+        }).then(stream => {
+          startStream(stream)
+        }, err => {
+          console.log(err)
+        })
+      }
     }
 
     return (
@@ -50,7 +68,7 @@ export default function Streams() {
             <div className={`Streams-separator ${appearance}`}></div>
             <div
               className={`button ${appearance}`}
-              onClick={registerStream}>
+              onClick={setupStream}>
                 Start stream
             </div>
             <div className='Streams-available'>

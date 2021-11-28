@@ -4,7 +4,7 @@ import FuelImage from '../../images/fuel_canister.svg'
 import Gamepad from '../../images/gamepad.svg'
 import Streaming from '../../images/streaming.svg'
 import { Link } from 'react-router-dom'
-import {Context} from '../../Context.js'
+import { Context } from '../../Context.js'
 
 export default function Home() {
     const {getDarkMode} = React.useContext(Context)
