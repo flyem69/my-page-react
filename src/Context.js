@@ -4,8 +4,16 @@ import Peer from 'peerjs'
 
 const Context = React.createContext()
 
-const socket = io()
-const peer = new Peer()
+const socket = io({
+    path: '/socket'
+})
+const peer = new Peer({
+    host: '/',
+    port: 443,
+    path: '/peer',
+    secure: true,
+    debug: 3
+})
 
 const ContextProvider = ({children}) => {
     const [getDarkMode, setDarkMode] = React.useState(true)

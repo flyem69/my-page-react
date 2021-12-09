@@ -13,8 +13,8 @@ export default function Streams() {
     const animation = isRefreshing ? 'rotating' : 'still'
     const streamList = getStreamList.map(streamId => {
       return (
-        <Link to={`/stream/${streamId}`}>
-          <div key={streamId}>
+        <Link to={`/stream/${streamId}`} key={streamId}>
+          <div className={`button ${appearance}`}>
             {streamId}
           </div>
         </Link>
@@ -25,11 +25,6 @@ export default function Streams() {
       if (isStreamService)
         fetchStreams()
     }, [isStreamService])
-
-    function refresh() {
-      if (isStreamService && !isRefreshing)
-        fetchStreams()
-    }
 
     function fetchStreams() {
       const startTime = Date.now()
@@ -47,6 +42,11 @@ export default function Streams() {
         }, err => {
           console.log(err)
         })
+    }
+
+    function refresh() {
+      if (isStreamService && !isRefreshing)
+        fetchStreams()
     }
 
     function setupStream() {
@@ -67,7 +67,7 @@ export default function Streams() {
             <div className='Streams-header'>Streams</div>
             <div className={`Streams-separator ${appearance}`}></div>
             <div
-              className={`button ${appearance}`}
+              className={`button Streams-start ${appearance}`}
               onClick={setupStream}>
                 Start stream
             </div>
