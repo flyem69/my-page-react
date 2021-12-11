@@ -5,7 +5,7 @@
     outline: 2px solid;
     border-radius: 50% / 100%;
     cursor: pointer;
-    transition: inherit;
+    transition: var(--transition);
 }
 
 .Switch.light {
@@ -20,10 +20,9 @@
     position: absolute;
     height: 100%; 
     width: 50%;
-    outline: 2px solid;
+    outline: inherit;
     border-radius: 50%;
-    outline-color: inherit;
-    transition: inherit;
+    transition: var(--transition);
 }
 
 .Switch-thumb.light {

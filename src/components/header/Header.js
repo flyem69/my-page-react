@@ -1,5 +1,5 @@
 import React from 'react'
-import Switch from '../switch/Switch.js'
+import Switch from './switch/Switch.js'
 import './Header.css'
 import { Context } from '../../Context.js'
 

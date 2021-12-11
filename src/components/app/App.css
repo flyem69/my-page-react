@@ -4,7 +4,6 @@
     grid-template-rows: auto 1fr;
     height: 100%;
     width: 100%;
-    transition: 0.2s;
 }
 
 .App-content {
@@ -13,7 +12,7 @@
     align-items: center;
     justify-items: center;
     overflow: auto;
-    transition: inherit;
+    transition: var(--transition);
 }
 
 .App-content.light {

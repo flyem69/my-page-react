@@ -4,7 +4,7 @@
     grid-template-rows: 60px;
     align-items: center;
     justify-items: center;
-    transition: inherit;
+    transition: var(--transition);
 }
 
 .Header.light {

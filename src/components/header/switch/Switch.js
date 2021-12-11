@@ -1,6 +1,6 @@
 import React from 'react'
 import './Switch.css'
-import { Context } from '../../Context.js'
+import { Context } from '../../../Context.js'
 
 export default function Switch({props}) {
     const {getDarkMode} = React.useContext(Context)

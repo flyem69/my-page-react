@@ -1,12 +1,13 @@
 import React from 'react'
 import './Fuel.css'
-import SmallInput from '../smallInput/SmallInput.js'
-import {Context} from '../../Context.js'
+import Input from './input/Input.js'
+import { Context } from '../../Context.js'
 
 export default function Fuel() {
     const {getDarkMode} = React.useContext(Context)
     const appearance = getDarkMode ? 'dark' : 'light'
     const [isBtnLock, setBtnLock] = React.useState(false)
+    const [getFuelValue, setFuelValue] = React.useState(0)
     const values = {
         lapTimeMin: React.useState(''),
         lapTimeS: React.useState(''),
@@ -15,7 +16,7 @@ export default function Fuel() {
         raceLength: React.useState(''),
         fuelPer100: React.useState(''),
         distance: React.useState(''),
-        result: React.useState('')
+        fuel: React.useState('')
     }
     const validities = {
         lapTime: React.useState(true),
@@ -43,7 +44,7 @@ export default function Fuel() {
         'validityState': validities.lapTime,
         'placeholder': 'ms',
         'onClick': () => {validities.lapTime[1](true)},
-        'regex': /^[0-5]?[0-9]?$/
+        'regex': /^\d{0,2}$/
     }
     const fuelPerLapProps = {
         'valueState': values.fuelPerLap,
@@ -74,6 +75,10 @@ export default function Fuel() {
         'regex': /^\d{0,4}$/
     }
 
+    React.useEffect(() => {
+        values.fuel[1](getFuelValue + ' l')
+    }, [getFuelValue])
+
     function calcRaceFuel() {
         if (isBtnLock)
             return
@@ -101,9 +106,8 @@ export default function Fuel() {
         }
 
         const laps = raceLength / lapTime
-        let fuel = fuelPerLap * laps
-        fuel = Math.ceil(fuel)
-        setResultSmoothly(fuel)
+        let newFuelValue = fuelPerLap * laps
+        setResultSmoothly(newFuelValue)
     }
 
     function calcRoadFuel() {
@@ -127,40 +131,35 @@ export default function Fuel() {
         }
 
         const distancePer100 = distance / 100
-        let fuel = fuelPer100 * distancePer100
-        fuel = Math.ceil(fuel)
-        setResultSmoothly(fuel)
+        let newFuelValue = fuelPer100 * distancePer100
+        setResultSmoothly(newFuelValue)
     }
 
-    function setResultSmoothly(value) {
+    function setResultSmoothly(newFuelValue) {
         setBtnLock(true)
-        const [getResult, setResult] = values.result
-        let resultValue = getResult.substring(0, getResult.length - 2)
-        if (isNaN(resultValue)) {
-            resultValue = 0
-            setResult(resultValue + ' l')
-        }
-        else {
-            resultValue *= 1
-        }
+        const resultChangeLength = 500
+        const numberOfChanges = 50
+        const valueGap = (newFuelValue - getFuelValue) / numberOfChanges
+        const timeGap = resultChangeLength / numberOfChanges
         const interpolationDataObj = {
-            valueGap: value > resultValue ? 1 : -1,
-            timeGap: 500 / Math.abs(resultValue - value),
-            currentValue: resultValue,
-            targetValue: value
+            iteration: 0,
+            limit: numberOfChanges,
+            valueGap: valueGap,
+            timeGap: timeGap,
+            rawValue: getFuelValue
         }
         interpolateResult(interpolationDataObj)
     }
 
     function interpolateResult(obj) {
-        const setResult = values.result[1]
-        if (obj.currentValue === obj.targetValue) {
+        if (obj.iteration >= obj.limit) {
             setBtnLock(false)
             return
         }
         setTimeout(() => {
-            obj.currentValue += obj.valueGap
-            setResult(obj.currentValue + ' l')
+            obj.rawValue += obj.valueGap
+            setFuelValue(Math.ceil(obj.rawValue))
+            obj.iteration++
             interpolateResult(obj)
         }, obj.timeGap)
     }
@@ -172,25 +171,25 @@ export default function Fuel() {
                     Lap time
                 </div>
                 <div className='x1 y0'>
-                    <SmallInput props={lapTimeMinProps}/>
+                    <Input props={lapTimeMinProps}/>
                 </div>
                 <div className='x2 y0'>
-                    <SmallInput props={lapTimeSProps}/>
+                    <Input props={lapTimeSProps}/>
                 </div>
                 <div className='x3 y0'>
-                    <SmallInput props={lapTimeMSProps}/>
+                    <Input props={lapTimeMSProps}/>
                 </div>
                 <div className='x0 y1 align-right'>
                     Fuel per lap
                 </div>
                 <div className='x1 y1'>
-                    <SmallInput props={fuelPerLapProps}/>
+                    <Input props={fuelPerLapProps}/>
                 </div>
                 <div className='x0 y2 align-right'>
                     Race length
                 </div>
                 <div className='x1 y2'>
-                    <SmallInput props={raceLengthProps}/>
+                    <Input props={raceLengthProps}/>
                 </div>
                 <div className='x03 y3'>
                     <div className={`button ${appearance}`} onClick={calcRaceFuel}>
@@ -203,13 +202,13 @@ export default function Fuel() {
                     Fuel per 100 km
                 </div>
                 <div className='x1 y0'>
-                    <SmallInput props={fuelPer100Props}/>
+                    <Input props={fuelPer100Props}/>
                 </div>
                 <div className='x0 y1 align-right'>
                     Distance
                 </div>
                 <div className='x1 y1'>
-                    <SmallInput props={distanceProps}/>
+                    <Input props={distanceProps}/>
                 </div>
                 <div className='x01 y2'>
                     <div className={`button ${appearance}`} onClick={calcRoadFuel}>
@@ -218,7 +217,7 @@ export default function Fuel() {
                 </div>
             </div>
             <div className='Fuel-result x01 y1'>
-                {values.result[0]}
+                {values.fuel[0]}
             </div>
         </div>
     )

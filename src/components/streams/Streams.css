@@ -22,6 +22,7 @@
     border-radius: 3px;
     width: 3px;
     height: 100%;
+    transition: var(--transition);
 }
 
 .Streams-separator.light {
@@ -45,7 +46,7 @@
 .Streams-refresh {
     height: 25px;
     width: 25px;
-    transition: 0.2s;
+    transition: var(--transition);
 }
 
 .Streams-refresh.rotating {
@@ -59,11 +60,11 @@
 }
 
 .Streams-refresh.light {
-    filter: invert(0%) sepia(89%) saturate(23%) hue-rotate(124deg) brightness(101%) contrast(75%); /* strong dark */
+    filter: var(--strong-dark-filter);
 }
 
 .Streams-refresh.dark {
-    filter: invert(99%) sepia(1%) saturate(2018%) hue-rotate(250deg) brightness(109%) contrast(63%); /* strong light */
+    filter: var(--strong-light-filter);
 }
 
 .Streams-refresh.hidden {

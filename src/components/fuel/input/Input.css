@@ -1,4 +1,4 @@
-.SmallInput {
+.Input {
     width: 40px;
     padding: 5px;
     outline: none;
@@ -6,37 +6,37 @@
     border-radius: 5px;
     background-color: transparent;
     font-size: 15px;
-    transition: 0.2s;
+    transition: var(--transition);
 }
 
-.SmallInput::-webkit-input-placeholder {
-    transition: 0.2s;
+.Input::-webkit-input-placeholder {
+    transition: var(--transition);
 }
 
-.SmallInput.light.valid {
+.Input.light.valid {
     border-color: var(--weak-light);
 }
 
-.SmallInput.dark.valid {
+.Input.dark.valid {
     border-color: var(--weak-dark);
 }
 
-.SmallInput.invalid {
+.Input.invalid {
     border-color: var(--red);
 }
 
-.SmallInput.light::-webkit-input-placeholder {
+.Input.light::-webkit-input-placeholder {
     color: var(--strong-dark);
 }
 
-.SmallInput.dark::-webkit-input-placeholder {
+.Input.dark::-webkit-input-placeholder {
     color: var(--strong-light);
 }
 
-.SmallInput.light:focus {
+.Input.light:focus {
     border-color: var(--weak-dark);
 }
 
-.SmallInput.dark:focus {
+.Input.dark:focus {
     border-color: var(--weak-light);
 }

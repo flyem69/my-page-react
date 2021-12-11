@@ -1,8 +1,8 @@
 import React from 'react'
-import './SmallInput.css'
-import {Context} from '../../Context.js'
+import './Input.css'
+import {Context} from '../../../Context.js'
 
-export default function SmallInput({props}) {
+export default function Input({props}) {
     const {getDarkMode} = React.useContext(Context)
     const appearance = getDarkMode ? 'dark' : 'light'
     const validity = props.validityState[0] ? 'valid' : 'invalid'
@@ -20,7 +20,7 @@ export default function SmallInput({props}) {
 
     return (
         <input
-            className={`SmallInput ${appearance} ${validity}`}
+            className={`Input ${appearance} ${validity}`}
             placeholder={props.placeholder}
             value={getValue}
             onChange={(e) => {modify(e)}}
