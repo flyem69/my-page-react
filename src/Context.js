@@ -1,15 +1,17 @@
 import React from 'react'
 import { io } from 'socket.io-client'
 import Peer from 'peerjs'
+import { config } from './config.js'
 
 const Context = React.createContext()
 
 const socket = io({
+    port: config.port,
     path: '/socket'
 })
 const peer = new Peer({
     host: '/',
-    port: 443,
+    port: config.port,
     path: '/peer',
     secure: true,
     debug: 3
