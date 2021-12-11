@@ -38,6 +38,10 @@
     font-size: 20px;
 }
 
+.Streams-start.hidden {
+    visibility: hidden;
+}
+
 .Streams-refresh {
     height: 25px;
     width: 25px;
@@ -60,6 +64,10 @@
 
 .Streams-refresh.dark {
     filter: invert(99%) sepia(1%) saturate(2018%) hue-rotate(250deg) brightness(109%) contrast(63%); /* strong light */
+}
+
+.Streams-refresh.hidden {
+    visibility: hidden;
 }
 
 @keyframes rotation {

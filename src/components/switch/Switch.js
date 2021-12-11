@@ -4,19 +4,12 @@ import { Context } from '../../Context.js'
 
 export default function Switch({props}) {
     const {getDarkMode} = React.useContext(Context)
-    const position = props.switchPosition
     const callback = props.switchCallback
     const appearance = getDarkMode ? 'dark' : 'light'
-    const thumbPosition = position ? '50%' : '0%'
+    const activity = props.switchPosition ? 'on' : 'off'
     return (
-        <div
-            className={`Switch ${appearance}`}
-            onClick={callback}
-        >
-            <div
-                className='Switch-thumb'
-                style={{left: thumbPosition}}
-            />
+        <div className={`Switch ${appearance}`} onClick={callback}>
+            <div className={`Switch-thumb ${appearance} ${activity}`}/>
         </div>
     )
 }

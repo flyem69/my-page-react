@@ -5,11 +5,13 @@ import { Context } from '../../Context.js'
 import Refresh from '../../images/refresh.svg'
 
 export default function Streams() {
-    const { getDarkMode, isStreamService, startStream } = React.useContext(Context)
+    const { getDarkMode, isStreamService, getStream, startStream } = React.useContext(Context)
     const [getStreamList, setStreamList] = React.useState([])
     const [isRefreshing, setRefreshing] = React.useState(false)
     const appearance = getDarkMode ? 'dark' : 'light'
     const availableStreams = isStreamService ? getStreamList.length : 'No service'
+    const refreshVisibility = isStreamService ? 'visible' : 'hidden'
+    const startStreamVisibility = isStreamService && getStream == null ? 'visible' : 'hidden'
     const animation = isRefreshing ? 'rotating' : 'still'
     const streamList = getStreamList.map(streamId => {
       return (
@@ -24,6 +26,8 @@ export default function Streams() {
     React.useEffect(() => {
       if (isStreamService)
         fetchStreams()
+      else
+        setStreamList([])
     }, [isStreamService])
 
     function fetchStreams() {
@@ -45,12 +49,14 @@ export default function Streams() {
     }
 
     function refresh() {
-      if (isStreamService && !isRefreshing)
+      if (isStreamService && 
+        !isRefreshing && 
+        refreshVisibility === 'visible')
         fetchStreams()
     }
 
     function setupStream() {
-      if (isStreamService) {
+      if (isStreamService && startStreamVisibility === 'visible') {
         navigator.mediaDevices.getDisplayMedia({
           video: true,
           audio: true
@@ -67,7 +73,7 @@ export default function Streams() {
             <div className='Streams-header'>Streams</div>
             <div className={`Streams-separator ${appearance}`}></div>
             <div
-              className={`button Streams-start ${appearance}`}
+              className={`button Streams-start ${appearance} ${startStreamVisibility}`}
               onClick={setupStream}>
                 Start stream
             </div>
@@ -75,7 +81,7 @@ export default function Streams() {
               Available streams: {availableStreams}
               <img 
                 src={Refresh}
-                className={`Streams-refresh ${animation} ${appearance}`}
+                className={`Streams-refresh ${animation} ${appearance} ${refreshVisibility}`}
                 alt='refresh'
                 onClick={refresh}
               />

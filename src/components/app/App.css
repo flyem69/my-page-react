@@ -1,12 +1,19 @@
-.App-content {
+.App {
     display: grid;
-    align-items: center;
-    justify-items: center;
     position: fixed;
+    grid-template-rows: auto 1fr;
     height: 100%;
     width: 100%;
     transition: 0.2s;
+}
+
+.App-content {
+    display: grid;
+    position: relative;
+    align-items: center;
+    justify-items: center;
     overflow: auto;
+    transition: inherit;
 }
 
 .App-content.light {

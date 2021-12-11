@@ -14,12 +14,9 @@ export default function Header() {
     }
     return (
         <div className={`Header ${appearance}`}>
-            <div className='Header-switch'>
-                <Switch props={switchProps}/>
-            </div>
-            <div className='Header-switchLabel'>
-                Dark mode
-            </div>
+            <div></div>
+            <div></div>
+            <Switch props={switchProps}/>
         </div>
     )
 }

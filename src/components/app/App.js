@@ -8,12 +8,12 @@ function App() {
   const {getDarkMode} = React.useContext(Context)
   const appearance = getDarkMode ? 'dark' : 'light'
   return (
-    <>
+    <div className='App'>
       <Header/>
       <div className={`App-content ${appearance}`}>
         <Router/>
       </div>
-    </>
+    </div>
   );
 }
 

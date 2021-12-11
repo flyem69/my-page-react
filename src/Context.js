@@ -7,12 +7,12 @@ const Context = React.createContext()
 
 const socket = io({
     port: config.port,
-    path: '/socket'
+    path: config.socketPath
 })
 const peer = new Peer({
     host: '/',
     port: config.port,
-    path: '/peer',
+    path: config.peerPath,
     secure: true,
     debug: 3
 })
@@ -97,6 +97,7 @@ const ContextProvider = ({children}) => {
             getDarkMode,
             setDarkMode,
             isStreamService,
+            getStream,
             startStream,
             joinStream,
             leaveStream
