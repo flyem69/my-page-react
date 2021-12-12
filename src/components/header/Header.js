@@ -1,6 +1,8 @@
 import React from 'react'
+import Home from '../../images/home.svg'
 import Switch from './switch/Switch.js'
 import './Header.css'
+import { Link } from 'react-router-dom'
 import { Context } from '../../Context.js'
 
 export default function Header() {
@@ -14,7 +16,13 @@ export default function Header() {
     }
     return (
         <div className={`Header ${appearance}`}>
-            <div></div>
+            <Link to='/'>
+                <img 
+                    src={Home}
+                    className={`Header-home ${appearance}`}
+                    alt='Home'
+                />
+            </Link>
             <div></div>
             <Switch props={switchProps}/>
         </div>
