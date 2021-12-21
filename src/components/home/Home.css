@@ -8,6 +8,7 @@
 }
 
 .Home-item {
+    background-size: 200px 200px;
     height: 200px;
     width: 200px;
     transition: var(--transition);
@@ -24,4 +25,16 @@
 
 .Home-item.dark {
     filter: var(--strong-light-filter);
+}
+
+.Home-fuel {
+    background-image: url(../../images/fuel.svg);
+}
+
+.Home-gamepad {
+    background-image: url(../../images/gamepad.svg);
+}
+
+.Home-streaming {
+    background-image: url(../../images/streaming.svg);
 }

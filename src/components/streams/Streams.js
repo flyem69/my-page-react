@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Streams.css'
 import { Context } from '../../Context.js'
-import Refresh from '../../images/refresh.svg'
 
 export default function Streams() {
     const { getDarkMode, isStreamService, getStream, startStream } = React.useContext(Context)
@@ -79,10 +78,8 @@ export default function Streams() {
             </div>
             <div className='Streams-available'>
               Available streams: {availableStreams}
-              <img 
-                src={Refresh}
+              <div
                 className={`Streams-refresh ${animation} ${appearance} ${refreshVisibility}`}
-                alt='refresh'
                 onClick={refresh}
               />
             </div>

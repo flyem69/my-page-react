@@ -44,8 +44,11 @@
 }
 
 .Streams-refresh {
+    display: inline-block;
     height: 25px;
     width: 25px;
+    background-image: url(../../images/refresh.svg);
+    background-size: 25px 25px;
     transition: var(--transition);
 }
 

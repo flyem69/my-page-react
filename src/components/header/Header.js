@@ -1,5 +1,4 @@
 import React from 'react'
-import Home from '../../images/home.svg'
 import Switch from './switch/Switch.js'
 import './Header.css'
 import { Link } from 'react-router-dom'
@@ -17,11 +16,7 @@ export default function Header() {
     return (
         <div className={`Header ${appearance}`}>
             <Link to='/'>
-                <img 
-                    src={Home}
-                    className={`Header-home ${appearance}`}
-                    alt='Home'
-                />
+                <div className={`Header-home ${appearance}`}/>
             </Link>
             <div></div>
             <Switch props={switchProps}/>

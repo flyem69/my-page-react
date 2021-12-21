@@ -1,8 +1,5 @@
 import React from 'react'
 import './Home.css'
-import Fuel from '../../images/fuel_canister.svg'
-import Gamepad from '../../images/gamepad.svg'
-import Streaming from '../../images/streaming.svg'
 import { Link } from 'react-router-dom'
 import { Context } from '../../Context.js'
 
@@ -12,23 +9,11 @@ export default function Home() {
     return (
         <div className='Home-grid'>
             <Link to='/fuel'>
-                <img
-                    src={Fuel}
-                    className={`Home-item ${appearance}`}
-                    alt='Fuel'
-                />
+                <div className={`Home-item Home-fuel ${appearance}`}/>
             </Link>
-            <img
-                src={Gamepad}
-                className={`Home-item ${appearance}`}
-                alt='Gamepad'
-            />
+            <div className={`Home-item Home-gamepad ${appearance}`}/>
             <Link to='/streams'>
-                <img
-                    src={Streaming}
-                    className={`Home-item ${appearance}`}
-                    alt='Streaming'
-                />
+                <div className={`Home-item Home-streaming ${appearance}`}/>
             </Link>
         </div>
     )
