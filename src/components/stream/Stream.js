@@ -50,26 +50,24 @@ export default function Stream() {
     }
 
     return (
-        <div className='Stream-wrapper'>
-            <FullScreen handle={fullScreenHandle} onChange={screenModeChanged}>
-                <video
-                    className='Stream-player'
-                    ref={videoRef}
-                    src='https://media.w3.org/2010/05/sintel/trailer_hd.mp4'
-                    autoPlay
-                    playsInline
-                    muted
-                    onPlay={() => setPlayState(true)}
-                    onPause={() => setPlayState(false)}
-                >
-                </video>
-                <div className='Stream-controls'>
-                    <div className={`Stream-control Stream-play ${playState}`} onClick={togglePlay}></div>
-                    <div className='Stream-control Stream-volume'>volume</div>
-                    <div></div>
-                    <div className={`Stream-control Stream-full-screen ${screenMode}`} onClick={toggleFullScreen}></div>
-                </div>
-            </FullScreen>
-        </div>
+        <FullScreen className='Stream-wrapper' handle={fullScreenHandle} onChange={screenModeChanged}> 
+            <video
+                className='Stream-player'
+                ref={videoRef}
+                src='https://media.w3.org/2010/05/sintel/trailer_hd.mp4'
+                autoPlay
+                playsInline
+                muted
+                onPlay={() => setPlayState(true)}
+                onPause={() => setPlayState(false)}
+            >
+            </video>
+            <div className='Stream-controls'>
+                <div className={`Stream-control Stream-play ${playState}`} onClick={togglePlay}></div>
+                <div className='Stream-control Stream-volume'>volume</div>
+                <div></div>
+                <div className={`Stream-control Stream-full-screen ${screenMode}`} onClick={toggleFullScreen}></div>
+            </div>
+        </FullScreen>
     )
 }
