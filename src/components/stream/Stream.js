@@ -9,15 +9,11 @@ export default function Stream() {
     const [isStreamRunning, setStreamRunning] = React.useState(false)
     const [getPlayState, setPlayState] = React.useState(false)
     const playState = getPlayState ? 'playing' : 'paused'
-    const [getScreenMode, setScreenMode] = React.useState(false)
-    const screenMode = getScreenMode ? 'full' : 'window'
+    const [getScreenState, setScreenState] = React.useState(false)
+    const screenMode = getScreenState ? 'full' : 'window'
     const { id } = useParams()
     const videoRef = React.useRef()
     const fullScreenHandle = useFullScreenHandle()
-
-    const screenModeChanged = React.useCallback((state, handle) => {
-        setScreenMode(state)
-    }, [fullScreenHandle])
 
     React.useEffect(() => {
         if (isStreamService && !isStreamRunning) {
@@ -33,6 +29,14 @@ export default function Stream() {
         }
     }, [isStreamService, isStreamRunning])
 
+    const screenModeChanged = React.useCallback((state, handle) => {
+        setScreenState(state)
+    }, [fullScreenHandle])
+
+    function playModeChanged(state) {
+        setPlayState(state)
+    }
+
     function togglePlay() {
         if (videoRef.current.paused || videoRef.current.ended) {
             videoRef.current.play()
@@ -41,7 +45,7 @@ export default function Stream() {
         }
     }
 
-    function toggleFullScreen() {
+    function toggleScreen() {
         if (fullScreenHandle.active) {
             fullScreenHandle.exit()
         } else {
@@ -58,15 +62,15 @@ export default function Stream() {
                 autoPlay
                 playsInline
                 muted
-                onPlay={() => setPlayState(true)}
-                onPause={() => setPlayState(false)}
+                onPlay={() => playModeChanged(true)}
+                onPause={() => playModeChanged(false)}
             >
             </video>
             <div className='Stream-controls'>
                 <div className={`Stream-control Stream-play ${playState}`} onClick={togglePlay}></div>
-                <div className='Stream-control Stream-volume'>volume</div>
                 <div></div>
-                <div className={`Stream-control Stream-full-screen ${screenMode}`} onClick={toggleFullScreen}></div>
+                <div></div>
+                <div className={`Stream-control Stream-full-screen ${screenMode}`} onClick={toggleScreen}></div>
             </div>
         </FullScreen>
     )
