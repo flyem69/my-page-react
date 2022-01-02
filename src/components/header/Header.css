@@ -1,6 +1,6 @@
 .Header {
     display: grid;
-    grid-template-columns: 110px 1fr 90px;
+    grid-template-columns: 110px auto 1fr auto;
     grid-template-rows: 60px;
     align-items: center;
     justify-items: center;
@@ -29,4 +29,33 @@
 
 .Header-home.dark {
     filter: var(--strong-light-filter);
+}
+
+.Header-gap {
+    width: 15px;
+}
+
+.Header-icons {
+    display: flex;
+    flex-flow: row-reverse;
+    flex-wrap: nowrap;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+    scrollbar-width: 0;
+    overflow: auto;
+}
+
+.Header-icons::-webkit-scrollbar {
+    display: none;
+}
+
+.Header-icons > div {
+    flex-shrink: 0;
+}
+
+.Switch {
+    margin: 2px;
 }

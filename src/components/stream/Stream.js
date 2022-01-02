@@ -6,9 +6,9 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
 export default function Stream() {
     const { joinStream, leaveStream, isStreamService } = React.useContext(Context)
-    const [isStreamRunning, setStreamRunning] = React.useState(false)
+    const [isStreamInitialized, setStreamInitialized] = React.useState(false)
     const [getPlayState, setPlayState] = React.useState(false)
-    const playState = getPlayState ? 'playing' : 'paused'
+    const playMode = getPlayState ? 'playing' : 'paused'
     const [getScreenState, setScreenState] = React.useState(false)
     const screenMode = getScreenState ? 'full' : 'window'
     const { id } = useParams()
@@ -16,18 +16,18 @@ export default function Stream() {
     const fullScreenHandle = useFullScreenHandle()
 
     React.useEffect(() => {
-        if (isStreamService && !isStreamRunning) {
+        if (isStreamService && !isStreamInitialized) {
             joinStream(id, stream => {
                 videoRef.current.srcObject = stream
             })
-            setStreamRunning(true)
+            setStreamInitialized(true)
         }
         return () => {
-            if (isStreamRunning) {
+            if (isStreamInitialized) {
                 leaveStream(id)
             }
         }
-    }, [isStreamService, isStreamRunning])
+    }, [isStreamService, isStreamInitialized])
 
     const screenModeChanged = React.useCallback((state, handle) => {
         setScreenState(state)
@@ -58,7 +58,6 @@ export default function Stream() {
             <video
                 className='Stream-player'
                 ref={videoRef}
-                src='https://media.w3.org/2010/05/sintel/trailer_hd.mp4'
                 autoPlay
                 playsInline
                 muted
@@ -67,7 +66,7 @@ export default function Stream() {
             >
             </video>
             <div className='Stream-controls'>
-                <div className={`Stream-control Stream-play ${playState}`} onClick={togglePlay}></div>
+                <div className={`Stream-control Stream-play ${playMode}`} onClick={togglePlay}></div>
                 <div></div>
                 <div></div>
                 <div className={`Stream-control Stream-full-screen ${screenMode}`} onClick={toggleScreen}></div>

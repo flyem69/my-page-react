@@ -7,7 +7,7 @@ export default function Home() {
     const {getDarkMode} = React.useContext(Context)
     const appearance = getDarkMode ? 'dark' : 'light'
     return (
-        <div className='Home-grid'>
+        <div className='Home'>
             <Link to='/fuel'>
                 <div className={`Home-item Home-fuel ${appearance}`}/>
             </Link>

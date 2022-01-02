@@ -165,58 +165,60 @@ export default function Fuel() {
     }
 
     return (
-        <div className='Fuel-grid'>
-            <div className='Fuel-category-grid x0 y0'>
-                <div className='x0 y0 align-right'>
-                    Lap time
+        <div className='Fuel'>
+            <div className='Fuel-categories'>
+                <div className='Fuel-category'>
+                    <div className='x0 y0 align-right'>
+                        Lap time
+                    </div>
+                    <div className='x1 y0'>
+                        <Input props={lapTimeMinProps}/>
+                    </div>
+                    <div className='x2 y0'>
+                        <Input props={lapTimeSProps}/>
+                    </div>
+                    <div className='x3 y0'>
+                        <Input props={lapTimeMSProps}/>
+                    </div>
+                    <div className='x0 y1 align-right'>
+                        Fuel per lap
+                    </div>
+                    <div className='x1 y1'>
+                        <Input props={fuelPerLapProps}/>
+                    </div>
+                    <div className='x0 y2 align-right'>
+                        Race length
+                    </div>
+                    <div className='x1 y2'>
+                        <Input props={raceLengthProps}/>
+                    </div>
+                    <div className='x03 y3'>
+                        <div className={`button ${appearance}`} onClick={calcRaceFuel}>
+                            Calculate race fuel
+                        </div>
+                    </div>
                 </div>
-                <div className='x1 y0'>
-                    <Input props={lapTimeMinProps}/>
-                </div>
-                <div className='x2 y0'>
-                    <Input props={lapTimeSProps}/>
-                </div>
-                <div className='x3 y0'>
-                    <Input props={lapTimeMSProps}/>
-                </div>
-                <div className='x0 y1 align-right'>
-                    Fuel per lap
-                </div>
-                <div className='x1 y1'>
-                    <Input props={fuelPerLapProps}/>
-                </div>
-                <div className='x0 y2 align-right'>
-                    Race length
-                </div>
-                <div className='x1 y2'>
-                    <Input props={raceLengthProps}/>
-                </div>
-                <div className='x03 y3'>
-                    <div className={`button ${appearance}`} onClick={calcRaceFuel}>
-                        Calculate race fuel
+                <div className='Fuel-category'>
+                    <div className='x0 y0 align-right'>
+                        Fuel per 100 km
+                    </div>
+                    <div className='x1 y0'>
+                        <Input props={fuelPer100Props}/>
+                    </div>
+                    <div className='x0 y1 align-right'>
+                        Distance
+                    </div>
+                    <div className='x1 y1'>
+                        <Input props={distanceProps}/>
+                    </div>
+                    <div className='x01 y2'>
+                        <div className={`button ${appearance}`} onClick={calcRoadFuel}>
+                            Calculate road fuel
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className='Fuel-category-grid x1 y0'>
-                <div className='x0 y0 align-right'>
-                    Fuel per 100 km
-                </div>
-                <div className='x1 y0'>
-                    <Input props={fuelPer100Props}/>
-                </div>
-                <div className='x0 y1 align-right'>
-                    Distance
-                </div>
-                <div className='x1 y1'>
-                    <Input props={distanceProps}/>
-                </div>
-                <div className='x01 y2'>
-                    <div className={`button ${appearance}`} onClick={calcRoadFuel}>
-                        Calculate road fuel
-                    </div>
-                </div>
-            </div>
-            <div className='Fuel-result x01 y1'>
+            <div className='Fuel-result'>
                 {values.fuel[0]}
             </div>
         </div>

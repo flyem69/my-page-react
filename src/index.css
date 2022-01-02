@@ -30,6 +30,7 @@ body {
   border-radius: 5px;
   padding: 5px;
   transition: var(--transition);
+  text-align: center;
 }
 
 .button.light {
