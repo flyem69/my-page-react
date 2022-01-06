@@ -153,6 +153,10 @@ export default function Fuel() {
 
     function interpolateResult(obj) {
         if (obj.iteration >= obj.limit) {
+            //fixing floating point precision
+            let finalResult = Math.round((obj.rawValue + Number.EPSILON) * 100) / 100
+            finalResult = Math.ceil(finalResult)
+            setFuelValue(finalResult)
             setBtnLock(false)
             return
         }
