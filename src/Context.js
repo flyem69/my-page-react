@@ -19,6 +19,9 @@ const peer = new Peer({
 
 const ContextProvider = ({children}) => {
     const [getDarkMode, setDarkMode] = React.useState(true)
+    const [getTooltipText, setTooltipText] = React.useState('')
+    const [getTooltipVisibility, setTooltipVisibility] = React.useState(false)
+    const [getTooltipDistances, setTooltipDistances] = React.useState([0, 0]) // [distanceLeft, distanceRight]
     const [isSocketConn, setSocketConn] = React.useState(false)
     const [isPeerConn, setPeerConn] = React.useState(false)
     const [isStreamService, setStreamService] = React.useState(false)
@@ -92,10 +95,28 @@ const ContextProvider = ({children}) => {
         socket.emit('leaveStream', streamSocket, peer.id)
     }
 
+    function enableTooltip(text, toolBoundingClientRect) {
+        const toolWidth = toolBoundingClientRect.right - toolBoundingClientRect.left
+        const toolDistanceLeft = toolBoundingClientRect.left + (toolWidth / 2)
+        const toolDistanceRight = window.innerWidth - toolBoundingClientRect.right + (toolWidth / 2)
+        setTooltipText(text)
+        setTooltipDistances([toolDistanceLeft, toolDistanceRight])
+        setTooltipVisibility(true)
+    }
+    
+    function disableTooltip() {
+        setTooltipVisibility(false)
+    }
+
     return (
         <Context.Provider value={{
             getDarkMode,
             setDarkMode,
+            enableTooltip,
+            disableTooltip,
+            getTooltipText,
+            getTooltipVisibility,
+            getTooltipDistances,
             isStreamService,
             getStream,
             startStream,

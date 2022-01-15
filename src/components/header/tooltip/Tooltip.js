@@ -3,14 +3,19 @@ import './Tooltip.css'
 import { Context } from '../../../Context.js'
 
 export default function Tooltip({props}) {
-    const { getDarkMode } = React.useContext(Context)
+    const {
+        getDarkMode,
+        getTooltipText,
+        getTooltipVisibility,
+        getTooltipDistances
+    } = React.useContext(Context)
     const tooltipRef = React.useRef()
     const appearance = getDarkMode ? 'dark' : 'light'
-    const activity = props.visibility ? 'active' : 'idle'
+    const activity = getTooltipVisibility ? 'active' : 'idle'
 
     React.useEffect(() => {
-        const toolOffsetLeft = props.toolOffsets[0]
-        const toolOffsetRight = props.toolOffsets[1]
+        const toolOffsetLeft = getTooltipDistances[0]
+        const toolOffsetRight = getTooltipDistances[1]
         const tooltipWidth = tooltipRef.current.offsetWidth
         if (toolOffsetLeft < (tooltipWidth / 2)) {
             tooltipRef.current.style.left = '0px'
@@ -23,11 +28,11 @@ export default function Tooltip({props}) {
             tooltipRef.current.style.left = styleLeft + 'px'
             tooltipRef.current.style.right = 'auto'
         }
-    }, [props.toolOffsets])
+    }, [getTooltipDistances])
 
     return (
         <div className={`Tooltip ${activity} ${appearance}`} ref={tooltipRef}>
-            {props.text}
+            {getTooltipText}
         </div>
     )
 }
