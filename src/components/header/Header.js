@@ -1,41 +1,73 @@
 import React from 'react'
-import Switch from './switch/Switch.js'
 import './Header.css'
+import Switch from './switch/Switch.js'
+import Tooltip from './tooltip/Tooltip.js'
 import { Link } from 'react-router-dom'
 import { Context } from '../../Context.js'
+import { getHorizontalOffsets } from '../../helpers/getHorizontalOffsets.js'
 
 export default function Header() {
-    const {getDarkMode, setDarkMode} = React.useContext(Context)
+    const [getTooltipText, setTooltipText] = React.useState('')
+    const [getTooltipVisibility, setTooltipVisibility] = React.useState(false)
+    const [getToolOffsets, setToolOffsets] = React.useState([0, 0]) // [offsetLeft, offsetRight]
+    const { getDarkMode, setDarkMode } = React.useContext(Context)
     const appearance = getDarkMode ? 'dark' : 'light'
-    const headerRef = React.useRef()
+    const homeRef = React.useRef()
+    const headerIconsRef = React.useRef()
     const switchProps = {
-        switchPosition: getDarkMode,
-        switchCallback: () => {
+        position: getDarkMode,
+        callback: () => {
             setDarkMode(darkMode => !darkMode)
-        }
+        },
+        setTooltipText: setTooltipText,
+        setTooltipVisibility: setTooltipVisibility,
+        setToolOffsets: setToolOffsets
+    }
+    const tooltipProps = {
+        text: getTooltipText,
+        visibility: getTooltipVisibility,
+        toolOffsets: getToolOffsets
     }
 
     React.useEffect(() => {
         function wheelScrollEvent(e) {
             e.preventDefault()
-            headerRef.current.scrollLeft -= e.deltaY
+            headerIconsRef.current.scrollLeft += e.deltaY
         }
-        headerRef.current.addEventListener('wheel', wheelScrollEvent)
+        headerIconsRef.current.addEventListener('wheel', wheelScrollEvent)
         return () => {
-            headerRef.current.removeEventListener('wheel', wheelScrollEvent)
+            headerIconsRef.current.removeEventListener('wheel', wheelScrollEvent)
         }
     }, [])
 
+    function enableHomeTooltip() {
+        const horizontalOffsets = getHorizontalOffsets(homeRef.current.getBoundingClientRect())
+        setTooltipText('Home')
+        setToolOffsets(horizontalOffsets)
+        setTooltipVisibility(true)
+    }
+
+    function disableHomeTooltip() {
+        setTooltipVisibility(false)
+    }
+
     return (
         <div className={`Header ${appearance}`}>
-            <Link to='/'>
-                <div className={`Header-home ${appearance}`}/>
-            </Link>
-            <div className='Header-gap'/>
-            <div className='Header-icons' ref={headerRef}>
-                <Switch props={switchProps}/>
+            <div className='Header-content'>
+                <Link to='/'>
+                    <div 
+                        className={`Header-home ${appearance}`}
+                        ref={homeRef}
+                        onMouseOver={enableHomeTooltip}
+                        onMouseOut={disableHomeTooltip}/>
+                </Link>
+                <div className='Header-gap'/>
+                <div className='Header-icons' ref={headerIconsRef}>
+                    <Switch props={switchProps}/>
+                </div>
+                <div className='Header-gap'/>
             </div>
-            <div className='Header-gap'/>
+            <Tooltip props={tooltipProps}/>
         </div>
     )
 }
